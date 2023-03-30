@@ -5,4 +5,4 @@ WORKDIR /app
 
 EXPOSE 80
 
-CMD ["java", "-jar", "hello-world-api.jar"]
+CMD ["java", "-jar", "hello-world-java-1.0.0.jar"]
