@@ -1,4 +1,5 @@
 FROM openjdk:17-alpine
+ARG TARGETARCH
 
 COPY ./target/hello-world-java-1.0.0.jar /app/
 WORKDIR /app
