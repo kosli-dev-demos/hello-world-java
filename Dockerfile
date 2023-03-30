@@ -1,6 +1,4 @@
-ARG ARCH=
-FROM ${ARCH}openjdk:17-alpine
-ARG TARGETARCH
+FROM openjdk:latest
 
 COPY ./target/hello-world-java-1.0.0.jar /app/
 WORKDIR /app
