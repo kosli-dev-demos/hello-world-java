@@ -50,8 +50,8 @@ jobs:
       - name: Build with Maven
         run: mvn clean install
 
-      - name: Retrieve JAR Path
-        run: $JARPATH=(./target/*.jar)
+      - name: Retrieve built .jar Path
+        run: echo ./target/*.jar >> $JARPATH
 
       - name: COMPLIANCE REPORT - Report Artifact Creation
         run: |
