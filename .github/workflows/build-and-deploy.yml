@@ -21,7 +21,6 @@ jobs:
       KOSLI_API_TOKEN: ${{ secrets.KOSLI_API_TOKEN }}
       KOSLI_ORG: ${{ secrets.KOSLI_ORG}}
       KOSLI_FLOW: unit-test-flow
-      JARPATH: empty
     permissions:
       contents: read
       packages: write
@@ -53,7 +52,7 @@ jobs:
       - name: Retrieve built .jar Path
         run: echo ./target/*.jar >> $JARPATH
 
-      - name: COMPLIANCE REPORT - Report Artifact Creation
+      - name: COMPLIANCE REPORT - Report jar Creation
         run: |
           kosli report artifact $JARPATH \
             --artifact-type file \
