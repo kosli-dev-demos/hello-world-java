@@ -49,10 +49,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          platforms: linux/amd64,linux/arm64
-          file: ./Dockerfile
-          push: true
-          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+        run: |
+          docker buildx build --push --platform linux/amd64,linux/arm64 -t ghcr.io/${{ github.repository }}:${{ github.sha }} .
+
+      - name: Push image as package
+        run: |
+          docker tag ghcr.io/${{ github.repository }}:${{ github.sha }} ghcr.io/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository }}:latest
