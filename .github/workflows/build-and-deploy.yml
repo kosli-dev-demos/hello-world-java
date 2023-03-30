@@ -64,6 +64,16 @@ jobs:
             --org $KOSLI_ORG \
             --flow $KOSLI_FLOW \
 
+      - name: COMPLIANCE REPORT - Control Validation | Unit Test & Evidence Upload
+        run: |
+          kosli report evidence artifact generic ${{ env.jarpath }} \
+            --artifact-type file \
+            --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
+            --evidence-paths ./target/surefire-reports \
+            --name unit-test \
+            --org $KOSLI_ORG \
+            --flow $KOSLI_FLOW \
+
       - name: Login to GitHub Packages
         uses: docker/login-action@v1
         with:
