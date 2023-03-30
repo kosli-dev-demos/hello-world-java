@@ -93,5 +93,15 @@ jobs:
 
       - name: COMPLIANCE REPORT - Control Validation | Container Metadata
         run: | 
-          echo "${{ steps.build-push-container-image.outputs.metadata }}" >> build-push-container-image-metadata.json
-          cat build-push-container-image-metadata.json
+          mkdir container-data
+          echo "${{ steps.build-push-container-image.outputs.metadata }}" >> ./container-data/build-push-container-image-metadata.json
+          echo "${{ steps.build-push-container-image.outputs.imageid }}" >> ./container-data/imageid
+          echo "${{ steps.build-push-container-image.outputs.digest }}" >> ./container-data/digest
+
+          kosli report evidence artifact generic ${{ env.jarpath }} \
+            --artifact-type file \
+            --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
+            --evidence-paths ./container-data \
+            --name container-metadata \
+            --org $KOSLI_ORG \
+            --flow $KOSLI_FLOW \
