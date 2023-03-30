@@ -53,7 +53,6 @@ jobs:
         run: | 
           path=(./target/*.jar)
           echo "jarpath=$path" >> $GITHUB_ENV
-          echo "The built jar path is: [ ${{ env.jarpath }} ]"
 
       - name: COMPLIANCE REPORT - Report jar Creation
         run: |
