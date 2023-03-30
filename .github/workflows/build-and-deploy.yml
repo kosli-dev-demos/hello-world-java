@@ -50,12 +50,3 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
           builder: docker
-
-      - name: Set up Docker CLI
-        uses: docker/cli-action@v2
-
-      - name: Push image as package
-        run: |
-          docker push ghcr.io/${{ github.repository }}:${{ github.sha }}
-          docker tag ghcr.io/${{ github.repository }}:${{ github.sha }} ghcr.io/${{ github.repository }}:latest
-          docker push ghcr.io/${{ github.repository }}:latest
