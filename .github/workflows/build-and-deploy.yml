@@ -51,7 +51,7 @@ jobs:
 
       - name: Retrieve built .jar Path
         run: | 
-          $path=(./target/*.jar)
+          path=(./target/*.jar)
           echo "jarpath=$path" >> $GITHUB_ENV
           echo "The built jar path is: [ ${{ env.jarpath }} ]"
 
