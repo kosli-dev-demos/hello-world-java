@@ -51,7 +51,7 @@ jobs:
 
       - name: COMPLIANCE REPORT - Report Artifact Creation
         run: |
-          jarPath=(./target/*)
+          jarPath=(ls ./target/*.jar)
           kosli report artifact $jarPath \
             --artifact-type file \
             --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
