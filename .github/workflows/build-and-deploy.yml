@@ -16,6 +16,7 @@ jobs:
 
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment: Bensing-Demos
     env:
       KOSLI_API_TOKEN: ${{ secrets.KOSLI_API_TOKEN }}
       KOSLI_ORG: ${{ secrets.KOSLI_ORG}}
