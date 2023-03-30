@@ -21,7 +21,7 @@ public class HelloWorldAPI {
                 exchange.close();
                 return;
             }
-            String response = "{\"message\": \"Hello World\"}";
+            String response = "{\"message\": \"Hello There\"}";
             exchange.getResponseHeaders().set("Content-Type", "application/json");
             exchange.sendResponseHeaders(200, response.length());
             OutputStream os = exchange.getResponseBody();

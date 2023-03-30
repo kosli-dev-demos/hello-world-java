@@ -37,7 +37,7 @@ public class HelloWorldAPITest {
         conn.connect();
         try (InputStream in = conn.getInputStream()) {
             byte[] response = in.readAllBytes();
-            assertEquals("{\"message\": \"Hello World\"}", new String(response));
+            assertEquals("{\"message\": \"Hello There\"}", new String(response));
         }
     }
 }
