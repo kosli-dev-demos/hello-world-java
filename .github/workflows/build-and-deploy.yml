@@ -47,7 +47,8 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: | 
+          mvn clean install >> maven-logs.txt
 
       - name: Retrieve built .jar Path
         run: | 
@@ -69,8 +70,16 @@ jobs:
           kosli report evidence artifact generic ${{ env.jarpath }} \
             --artifact-type file \
             --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
-            --evidence-paths ./target/surefire-reports \
+            --evidence-paths ./target/surefire-reports, \
             --name unit-test \
+            --org $KOSLI_ORG \
+            --flow $KOSLI_FLOW \
+          
+          kosli report evidence artifact generic ${{ env.jarpath }} \
+            --artifact-type file \
+            --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
+            --evidence-paths ./maven-logs.txt, \
+            --name jar-build-logs \
             --org $KOSLI_ORG \
             --flow $KOSLI_FLOW \
 
