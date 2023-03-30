@@ -82,6 +82,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
+        id: build-push-container-image
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -89,3 +90,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+      - name: COMPLIANCE REPORT - Control Validation | Container Metadata
+        run: | 
+          echo ${{ steps.build-push-container-image.outputs.metadata }} >> build-push-container-image-metadata.json
+          cat build-push-container-image-metadata.json
