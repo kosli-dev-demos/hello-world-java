@@ -51,12 +51,13 @@ jobs:
 
       - name: Retrieve built .jar Path
         run: | 
-          echo ./target/*.jar >> $JARPATH
-          echo "The built jar path is: [ ${{ env.JARPATH }} ]"
+          $path=(./target/*.jar)
+          echo "jarpath=$path" >> $GITHUB_ENV
+          echo "The built jar path is: [ ${{ env.jarpath }} ]"
 
       - name: COMPLIANCE REPORT - Report jar Creation
         run: |
-          kosli report artifact ${{ env.JARPATH }} \
+          kosli report artifact ${{ env.jarpath }} \
             --artifact-type file \
             --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
             --commit-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB} \
