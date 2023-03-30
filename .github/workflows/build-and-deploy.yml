@@ -50,11 +50,13 @@ jobs:
         run: mvn clean install
 
       - name: Retrieve built .jar Path
-        run: echo ./target/*.jar >> $JARPATH
+        run: | 
+          echo ./target/*.jar >> $JARPATH
+          echo "The built jar path is: [ ${{ env.JARPATH }} ]"
 
       - name: COMPLIANCE REPORT - Report jar Creation
         run: |
-          kosli report artifact $JARPATH \
+          kosli report artifact ${{ env.JARPATH }} \
             --artifact-type file \
             --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
             --commit-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB} \
