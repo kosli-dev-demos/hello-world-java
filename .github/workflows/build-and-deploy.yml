@@ -50,7 +50,7 @@ jobs:
         uses: snyk/actions/setup@master
 
       - name: Run Snyk to check for vulnerabilities
-        run: snyk test --org=BillBensing --json-file-output=snyk.json
+        run: snyk test --org=billbensing --json-file-output=snyk.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
