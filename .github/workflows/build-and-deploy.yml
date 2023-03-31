@@ -48,8 +48,6 @@ jobs:
 
       - name: Setup Snyk
       - uses: snyk/actions/setup@master
-        with:
-          go-version: "1.13"
 
       - name: Run Snyk to check for vulnerabilities
         run: snyk test --org=BillBensing --json-file-output=snyk.json
