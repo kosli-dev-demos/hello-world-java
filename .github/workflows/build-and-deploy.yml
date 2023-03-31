@@ -47,12 +47,12 @@ jobs:
           distribution: 'temurin'
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
+        uses: snyk/actions/maven-3-jdk-11@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --json-file-output=snyk.json
+          args: --org=BillBensing --json-file-output=snyk.json
 
       - name: Build with Maven
         run: | 
