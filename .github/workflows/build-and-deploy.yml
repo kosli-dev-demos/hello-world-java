@@ -47,13 +47,12 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Snyk
-      - uses: snyk/actions/setup@master
+        uses: snyk/actions/setup@master
 
       - name: Run Snyk to check for vulnerabilities
         run: snyk test --org=BillBensing --json-file-output=snyk.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
 
       - name: Build with Maven
         run: | 
