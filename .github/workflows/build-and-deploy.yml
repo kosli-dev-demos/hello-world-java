@@ -46,13 +46,16 @@ jobs:
           java-version: '19'
           distribution: 'temurin'
 
+      - name: Setup Snyk
+      - uses: snyk/actions/setup@master
+        with:
+          go-version: "1.13"
+
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven-3-jdk-11@master
-        continue-on-error: true
+        run: snyk test --org=BillBensing --json-file-output=snyk.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --org=BillBensing --json-file-output=snyk.json
+
 
       - name: Build with Maven
         run: | 
