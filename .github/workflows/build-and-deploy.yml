@@ -50,7 +50,7 @@ jobs:
         uses: snyk/actions/setup@master
 
       - name: Run Snyk to check for vulnerabilities
-        run: snyk test --org=billbensing --json-file-output=snyk.json
+        run: snyk test --org=billbensing --json-file-output=snyk-source-code-cve.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
@@ -88,8 +88,8 @@ jobs:
           kosli report evidence artifact generic ${{ env.jarpath }} \
             --artifact-type file \
             --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
-            --evidence-paths snyk.json \
-            --name cve-source-code \
+            --evidence-paths snyk-source-code-cve.json \
+            --name source-code-cve \
             --org $KOSLI_ORG \
             --flow $KOSLI_FLOW \
 
@@ -109,6 +109,23 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+      - name: Snyk container CVE Scan
+        run: |  
+          snyk container test ghcr.io/${{ github.repository }}:${{ github.sha }} \ 
+          --file=Dockerfile  \
+          --org=billbensing \
+          --json-file-output=snyk-container-cve.json \
+
+      - name: COMPLIANCE REPORT - Control Validation | Container CVE & Evidence Upload
+        run: |
+          kosli report evidence artifact generic ${{ env.jarpath }} \
+            --artifact-type file \
+            --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
+            --evidence-paths snyk-container-cve.json \
+            --name container-cve \
+            --org $KOSLI_ORG \
+            --flow $KOSLI_FLOW \
 
       - name: COMPLIANCE REPORT - Control Validation | Container Metadata
         run: | 
