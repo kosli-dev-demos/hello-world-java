@@ -56,16 +56,20 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+      - name: Static Code Analysis - by Snyk
+        continue-on-error: true
+        run: snyk code test --org=billbensing --json-file-output=snyk-sca.json
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
       - name: Build with Maven
         run: | 
           mvn clean install >> maven-logs.txt
-
 
       - name: Retrieve built .jar Path
         run: | 
           path=(./target/*.jar)
           echo "jarpath=$path" >> $GITHUB_ENV
-          
 
       - name: COMPLIANCE REPORT - Report jar Creation
         continue-on-error: true
@@ -90,8 +94,6 @@ jobs:
             --org $KOSLI_ORG \
             --flow $KOSLI_FLOW \
 
-
-
       - name: COMPLIANCE REPORT - Control Validation | Source Code CVE & Evidence Upload
         continue-on-error: true
         run: |
@@ -103,6 +105,16 @@ jobs:
             --org $KOSLI_ORG \
             --flow $KOSLI_FLOW \
 
+      - name: COMPLIANCE REPORT - Control Validation | Static Code Analysis & Evidence Upload
+        continue-on-error: true
+        run: |
+          kosli report evidence artifact generic ${{ env.jarpath }} \
+            --artifact-type file \
+            --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
+            --evidence-paths snyk-sca.json \
+            --name static-code-analysis \
+            --org $KOSLI_ORG \
+            --flow $KOSLI_FLOW \
 
 
       - name: Login to GitHub Packages
@@ -128,7 +140,7 @@ jobs:
           snyk container test ghcr.io/${{ github.repository }}:${{ github.sha }} \ 
             --file=Dockerfile  \
             --org=billbensing \
-            --json >> snyk-container-cve.json
+            --json-file-output=snyk-container-cve.json \
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
