@@ -125,10 +125,10 @@ jobs:
       - name: Snyk container CVE Scan
         continue-on-error: true
         run: |  
-          return = snyk container test ghcr.io/${{ github.repository }}:${{ github.sha }} \ 
+          snyk container test ghcr.io/${{ github.repository }}:${{ github.sha }} \ 
             --file=Dockerfile  \
             --org=billbensing \
-            --json-file-output=snyk-container-cve.json \
+            --json >> snyk-container-cve.json
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
