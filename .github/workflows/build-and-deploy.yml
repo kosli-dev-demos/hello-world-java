@@ -116,6 +116,8 @@ jobs:
           --file=Dockerfile  \
           --org=billbensing \
           --json-file-output=snyk-container-cve.json \
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: COMPLIANCE REPORT - Control Validation | Container CVE & Evidence Upload
         run: |
