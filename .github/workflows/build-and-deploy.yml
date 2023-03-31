@@ -52,7 +52,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --json-file-output=snyk-results.json
+          args: --json-file-output=snyk.json
 
       - name: Build with Maven
         run: | 
@@ -88,7 +88,7 @@ jobs:
           kosli report evidence artifact generic ${{ env.jarpath }} \
             --artifact-type file \
             --build-url ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} \
-            --evidence-paths snyk-results.json \
+            --evidence-paths snyk.json \
             --name cve-source-code \
             --org $KOSLI_ORG \
             --flow $KOSLI_FLOW \
