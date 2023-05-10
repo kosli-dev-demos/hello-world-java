@@ -4,9 +4,9 @@
 
 
   <groupId>dev.kosli</groupId>
-  <artifactId>hello-world-java</artifactId>
+  <artifactId>hello-world-api</artifactId>
   <version>1.0.0</version>
-  <name>hello-world-java</name>
+  <name>hello-world-api</name>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
@@ -24,6 +24,7 @@
   </dependencies>
 
   <build>
+    <finalName>hello-world-api</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
