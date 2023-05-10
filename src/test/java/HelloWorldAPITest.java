@@ -18,7 +18,7 @@ public class HelloWorldAPITest {
     @Before
     public void setUp() throws Exception {
         server = HttpServer.create(new InetSocketAddress(0), 0);
-        server.createContext("/hello", new HelloWorldAPI.MyHandler());
+        server.createContext("/hello", new HelloWorldAPI.MyHandler("./src/main/resources/config.properties"));
         server.setExecutor(null);
         server.start();
         int port = server.getAddress().getPort();
